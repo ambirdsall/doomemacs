@@ -1208,18 +1208,31 @@ between the two."
             :ni [C-return]   #'+org/insert-item-below
             :ni [C-S-return] #'+org/insert-item-above
             ;; navigate table cells (from insert-mode)
-            :i Cright (cmds! (org-at-table-p) #'org-table-next-field
-                             #'org-end-of-line)
-            :i Cleft  (cmds! (org-at-table-p) #'org-table-previous-field
-                             #'org-beginning-of-line)
-            :i Cup    (cmds! (org-at-table-p) #'+org/table-previous-row
-                             #'org-up-element)
-            :i Cdown  (cmds! (org-at-table-p) #'org-table-next-row
-                             #'org-down-element)
-            :ni CSright   #'org-shiftright
-            :ni CSleft    #'org-shiftleft
-            :ni CSup      #'org-shiftup
-            :ni CSdown    #'org-shiftdown
+            (:unless evil-disable-insert-state-bindings
+              :i Cright (cmds! (org-at-table-p) #'org-table-next-field #'org-end-of-line))
+            (:unless evil-disable-insert-state-bindings
+              :i Cleft  (cmds! (org-at-table-p) #'org-table-previous-field #'org-beginning-of-line))
+            (:unless evil-disable-insert-state-bindings
+              :i Cup    (cmds! (org-at-table-p) #'+org/table-previous-row #'org-up-element))
+            (:unless evil-disable-insert-state-bindings
+              :i Cdown  (cmds! (org-at-table-p) #'org-table-next-row #'org-down-element))
+            (:unless evil-disable-insert-state-bindings
+              :ni CSright   #'org-shiftright)
+            (:when evil-disable-insert-state-bindings
+              :n CSright   #'org-shiftright)
+            (:unless evil-disable-insert-state-bindings
+              :ni CSleft   #'org-shiftleft)
+            (:when evil-disable-insert-state-bindings
+              :n CSleft   #'org-shiftleft)
+            (:unless evil-disable-insert-state-bindings
+              :ni CSup   #'org-shiftup)
+            (:when evil-disable-insert-state-bindings
+              :n CSup   #'org-shiftup)
+            (:unless evil-disable-insert-state-bindings
+              :ni CSdown   #'org-shiftdown)
+            (:when evil-disable-insert-state-bindings
+              :n CSdown   #'org-shiftdown)
+
             ;; more intuitive RET keybinds
             :n [return]   #'+org/dwim-at-point
             :n "RET"      #'+org/dwim-at-point
