@@ -46,4 +46,7 @@
 
 ;; Add support for the Kitty keyboard protocol.
 (use-package! kkp
-  :hook (after-init . global-kkp-mode))
+  :hook (after-init . global-kkp-mode)
+  ;; kkp reporting sends "M-<return>" rather than "M-RET", which bypasses the
+  ;; default org-mode keybinding
+  :init (after! org (map! :map org-mode-map "M-<return>" #'org-meta-return)))
